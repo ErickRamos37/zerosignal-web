@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1d2a">
+  <meta name="description" content="ZeroSignal propone comunicación local para ranchos y espacios rurales sin cobertura celular. Conoce el estado real del prototipo y la propuesta.">
+  <title>ZeroSignal | Comunicación más allá de la cobertura</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #0b1d2a;
+      --navy-2: #153746;
+      --teal: #22c6b3;
+      --teal-dark: #087e78;
+      --amber: #f2a65a;
+      --paper: #f5f8f8;
+      --white: #ffffff;
+      --ink: #132b36;
+      --muted: #526873;
+      --line: #d9e3e5;
+      --soft-teal: #e4f4f1;
+      --radius: 20px;
+      --shadow: 0 22px 60px rgba(4, 22, 32, .12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+    .skip { position: absolute; left: 12px; top: -60px; z-index: 5; padding: 10px 14px; background: white; color: var(--navy); border-radius: 8px; }
+    .skip:focus { top: 12px; }
+    .topbar { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; color: var(--navy); font-weight: 850; font-size: 1.1rem; letter-spacing: -.04em; }
+    .brand-mark { width: 38px; height: 38px; display: block; }
+    .nav { display: flex; align-items: center; gap: 26px; }
+    .nav a { min-height: 44px; display: inline-flex; align-items: center; text-decoration: none; font-size: .9rem; font-weight: 700; color: var(--muted); }
+    .nav a:hover { color: var(--teal-dark); }
+    .nav .nav-cta { padding: 0 17px; border-radius: 999px; background: var(--navy); color: white; }
+    .hero { overflow: hidden; position: relative; isolation: isolate; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 44px; min-height: 580px; padding: clamp(34px, 6vw, 76px); border-radius: 28px; color: white; background: var(--navy); }
+    .hero::before { content: ""; position: absolute; z-index: -1; width: 560px; height: 560px; right: -240px; top: -310px; border: 1px solid rgba(34, 198, 179, .3); border-radius: 50%; box-shadow: 0 0 0 54px rgba(34, 198, 179, .045), 0 0 0 112px rgba(34, 198, 179, .035); }
+    .eyebrow { margin: 0 0 15px; color: var(--teal); font-size: .75rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 670px; margin-bottom: 20px; font-size: clamp(2.6rem, 5.2vw, 4.8rem); line-height: 1.02; letter-spacing: -.065em; }
+    .hero-copy { max-width: 590px; margin-bottom: 0; color: #d2e1e5; font-size: 1.09rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 20px; }
+    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 11px 18px; border: 1px solid transparent; border-radius: 999px; text-decoration: none; font-weight: 800; transition: transform .18s ease, background-color .18s ease, border-color .18s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--navy); background: var(--teal); }
+    .button-primary:hover { background: #54d9c9; }
+    .button-ghost { color: white; border-color: rgba(255,255,255,.3); background: transparent; }
+    .button-ghost:hover { border-color: var(--teal); }
+    .micro-note { display: flex; align-items: flex-start; gap: 9px; color: #c3d2d7; font-size: .85rem; }
+    .micro-note svg { flex: 0 0 17px; margin-top: 3px; color: var(--amber); }
+    .network-card { position: relative; padding: 18px; border: 1px solid rgba(34,198,179,.3); border-radius: 22px; background: linear-gradient(155deg, rgba(21,55,70,.96), rgba(12,35,48,.98)); box-shadow: 0 26px 65px rgba(0,0,0,.22); }
+    .network-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 3px 3px 15px; color: #d7e6e9; font-size: .77rem; font-weight: 800; letter-spacing: .08em; }
+    .concept-label { padding: 5px 9px; border: 1px solid rgba(34,198,179,.35); border-radius: 999px; color: var(--teal); font-size: .67rem; letter-spacing: .08em; }
+    .network-graphic { display: block; width: 100%; height: auto; border-radius: 14px; background: #102d3b; }
+    .network-caption { margin: 12px 4px 0; color: #b8cbd0; font-size: .78rem; }
+    .section { padding-block: 88px; }
+    .section-heading { max-width: 720px; margin-bottom: 34px; }
+    .section-heading .eyebrow { color: var(--teal-dark); }
+    h2 { margin-bottom: 14px; color: var(--navy); font-size: clamp(2rem, 3.6vw, 3.25rem); line-height: 1.08; letter-spacing: -.05em; }
+    .section-heading > p { color: var(--muted); font-size: 1.02rem; }
+    .columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { min-height: 220px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: 0 8px 30px rgba(11,29,42,.035); }
+    .info-card .index { color: var(--teal-dark); font-size: .76rem; font-weight: 850; letter-spacing: .14em; }
+    .info-card h3 { margin: 17px 0 9px; color: var(--navy); font-size: 1.15rem; letter-spacing: -.02em; }
+    .info-card p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .value-strip { display: grid; grid-template-columns: .7fr 1.3fr; gap: 32px; align-items: center; padding: clamp(26px, 5vw, 48px); border: 1px solid #cde8e4; border-radius: 24px; background: var(--soft-teal); }
+    .value-strip .eyebrow { margin-bottom: 9px; color: var(--teal-dark); }
+    .value-strip h2 { margin-bottom: 0; font-size: clamp(1.8rem, 3vw, 2.6rem); }
+    .value-strip p { margin: 0; color: #36535e; font-size: 1.05rem; }
+    .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .status-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .status-card h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; color: var(--navy); font-size: 1.16rem; }
+    .status-card h3 svg { width: 21px; height: 21px; color: var(--teal-dark); }
+    .status-card p, .status-card li { color: var(--muted); font-size: .94rem; }
+    .status-card p:last-child { margin-bottom: 0; }
+    .status-card ul { margin: 0; padding-left: 20px; }
+    .status-card li + li { margin-top: 7px; }
+    .status-card.pending { border-color: #f0dfc6; background: #fffaf3; }
+    .status-card.pending h3 svg { color: #a76825; }
+    .contact-section { padding: 0 0 82px; }
+    .contact-box { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; padding: clamp(28px, 5vw, 48px); border-radius: 26px; color: white; background: var(--navy); }
+    .contact-box .eyebrow { margin-bottom: 9px; }
+    .contact-box h2 { margin-bottom: 11px; color: white; }
+    .contact-box p { max-width: 690px; margin: 0; color: #d2e1e5; }
+    .contact-actions { display: grid; gap: 10px; min-width: 235px; }
+    .contact-actions .button { white-space: nowrap; }
+    .contact-actions .button-ghost { border-color: rgba(255,255,255,.35); }
+    footer { display: flex; justify-content: space-between; gap: 16px; padding-block: 24px 32px; color: #60737c; font-size: .82rem; }
+    footer strong { color: var(--navy); }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .network-card { max-width: 640px; }
+      .columns { grid-template-columns: 1fr; }
+      .info-card { min-height: 0; }
+      .value-strip { grid-template-columns: 1fr; gap: 16px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 24px, 1160px); }
+      .topbar { min-height: 68px; }
+      .nav { gap: 9px; }
+      .nav a:not(.nav-cta) { display: none; }
+      .nav .nav-cta { padding-inline: 13px; font-size: .82rem; }
+      .hero { min-height: 0; padding: 34px 22px; border-radius: 22px; }
+      h1 { font-size: clamp(2.45rem, 12vw, 3.65rem); }
+      .hero-copy { font-size: 1rem; }
+      .hero-actions { display: grid; }
+      .hero-actions .button { width: 100%; }
+      .network-card { padding: 11px; border-radius: 17px; }
+      .section { padding-block: 64px; }
+      .status-grid { grid-template-columns: 1fr; }
+      .status-card { padding: 22px; }
+      .contact-section { padding-bottom: 56px; }
+      .contact-box { grid-template-columns: 1fr; border-radius: 22px; }
+      .contact-actions { min-width: 0; }
+      footer { display: block; }
+      footer span { display: block; margin-top: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="wrap topbar">
+    <a class="brand" href="#inicio" aria-label="ZeroSignal, inicio">
+      <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Isotipo de ZeroSignal">
+        <rect x="1" y="1" width="46" height="46" rx="15" fill="#0b1d2a"/>
+        <path d="M12 19a17 17 0 0 1 24 0M16.5 23.5a10.6 10.6 0 0 1 15 0" fill="none" stroke="#22c6b3" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="24" cy="29" r="3.2" fill="#f2a65a"/>
+        <path d="M13 37h22M17 33.5l7-3 7 3" fill="none" stroke="#d6e4e8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      ZeroSignal
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#propuesta">La propuesta</a>
+      <a href="#estado">Estado del prototipo</a>
+      <a class="nav-cta" href="#contacto">Contactar</a>
+    </nav>
+  </header>
+
+  <main id="contenido" class="wrap">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Tecnología de comunicación · zonas rurales</p>
+        <h1 id="hero-title">La comunicación debe llegar más allá de la cobertura.</h1>
+        <p class="hero-copy">ZeroSignal propone una red local de nodos para apoyar la coordinación y el envío de alertas en ranchos, espacios ecoturísticos y otras zonas remotas.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://wa.me/526161081999" target="_blank" rel="noopener">Hablar por WhatsApp <span aria-hidden="true">↗</span></a>
+          <a class="button button-ghost" href="#estado">Conocer el estado del prototipo</a>
+        </div>
+        <p class="micro-note"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2.5 17 6v4.5c0 3.9-2.7 6-7 7-4.3-1-7-3.1-7-7V6l7-3.5Z" stroke="currentColor" stroke-width="1.6"/><path d="m7 10 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Modelo propuesto: pago único por hardware, sin rentas mensuales.</p>
+      </div>
+      <div class="network-card">
+        <div class="network-head"><span>RED LOCAL · CONCEPTO</span><span class="concept-label">ESQUEMA</span></div>
+        <svg class="network-graphic" viewBox="0 0 600 360" role="img" aria-labelledby="network-title network-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="network-title">Diagrama conceptual de nodos ZeroSignal</title>
+          <desc id="network-desc">Tres nodos esquemáticos conectados entre sí; uno transmite una alerta SOS a un punto de operación.</desc>
+          <defs><linearGradient id="field" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#173d4a"/><stop offset="1" stop-color="#0d2633"/></linearGradient></defs>
+          <rect width="600" height="360" rx="18" fill="url(#field)"/>
+          <g fill="none" stroke="#22c6b3" stroke-width="2" stroke-dasharray="5 7" opacity=".78"><path d="M131 150 284 100 431 161 284 257 131 150"/><path d="M284 100v157"/></g>
+          <g fill="#163746" stroke="#55d8ca" stroke-width="2"><rect x="92" y="122" width="78" height="58" rx="13"/><rect x="245" y="72" width="78" height="58" rx="13"/><rect x="392" y="132" width="78" height="58" rx="13"/><rect x="245" y="228" width="78" height="58" rx="13"/></g>
+          <g fill="#e8f4f4" font-family="system-ui,sans-serif" text-anchor="middle"><text x="131" y="147" font-size="11" font-weight="700">NODO 01</text><text x="131" y="163" font-size="10" fill="#9db9c0">RANCHO</text><text x="284" y="97" font-size="11" font-weight="700">NODO 02</text><text x="284" y="113" font-size="10" fill="#9db9c0">ENLACE</text><text x="431" y="157" font-size="11" font-weight="700">NODO 03</text><text x="431" y="173" font-size="10" fill="#9db9c0">PERSONAL</text><text x="284" y="253" font-size="11" font-weight="700">PUNTO DE</text><text x="284" y="269" font-size="10" fill="#9db9c0">OPERACIÓN</text></g>
+          <circle cx="436" cy="220" r="18" fill="#f2a65a"/><path d="M436 210v11m0 6v.2" stroke="#102536" stroke-width="2.5" stroke-linecap="round"/><path d="M417 220h-23" stroke="#f2a65a" stroke-width="2" stroke-dasharray="3 5"/>
+          <rect x="456" y="207" width="113" height="28" rx="14" fill="#f2a65a"/><text x="512" y="225" text-anchor="middle" fill="#172d37" font-family="system-ui,sans-serif" font-size="10" font-weight="800">ALERTA SOS</text>
+          <text x="30" y="326" fill="#8faeb7" font-family="system-ui,sans-serif" font-size="10">VISUALIZACIÓN CONCEPTUAL · NO REPRESENTA UNA RED OPERATIVA</text>
+        </svg>
+        <p class="network-caption">Ilustración conceptual de comunicación entre nodos, no una captura de un sistema en funcionamiento.</p>
+      </div>
+    </section>
+
+    <section class="section" id="propuesta" aria-labelledby="proposal-title">
+      <div class="section-heading">
+        <p class="eyebrow">El reto en campo</p>
+        <h2 id="proposal-title">Cuando desaparece la señal, la operación sigue.</h2>
+        <p>En ranchos y parques remotos, la incomunicación puede complicar tareas diarias y retrasar una solicitud de ayuda. ZeroSignal explora una alternativa local que no dependa de internet ni de la red celular.</p>
+      </div>
+      <div class="columns">
+        <article class="info-card"><span class="index">01 · NECESIDAD</span><h3>Coordinar a las personas</h3><p>Dar a trabajadores y visitantes una forma de compartir alertas dentro de espacios sin cobertura celular.</p></article>
+        <article class="info-card"><span class="index">02 · ENFOQUE</span><h3>Red local entre nodos</h3><p>La propuesta contempla equipos en puntos estratégicos del predio y comunicación en malla sin internet.</p></article>
+        <article class="info-card"><span class="index">03 · MODELO</span><h3>Compra de hardware</h3><p>El modelo comercial planteado es un pago único por equipo, sin una renta mensual por el servicio.</p></article>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0" aria-label="Propuesta de valor">
+      <div class="value-strip"><div><p class="eyebrow">Propuesta de valor</p><h2>Una red pensada para operar fuera de línea.</h2></div><p>ZeroSignal busca facilitar la comunicación local y las alertas en entornos rurales. La integración de LoRa, GPS, mapas offline y energía solar forma parte del desarrollo propuesto; estas capacidades aún requieren integración y pruebas de campo.</p></div>
+    </section>
+
+    <section class="section" id="estado" style="padding-top:0" aria-labelledby="status-title">
+      <div class="section-heading"><p class="eyebrow">Transparencia del proyecto</p><h2 id="status-title">Lo probado y lo que falta validar.</h2><p>La página distingue los resultados del prototipo inicial de las funciones todavía en desarrollo.</p></div>
+      <div class="status-grid">
+        <article class="status-card">
+          <h3><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.3 4.3L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/></svg>Comprobado en el prototipo inicial</h3>
+          <p>Se probó comunicación directa entre microcontroladores ESP32 y el envío de alertas sin cobertura celular. La hoja de ruta reporta aproximadamente 100.5 metros con el modo Long Range nativo del ESP32; ese dato no representa el alcance esperado con LoRa.</p>
+          <p>En una validación exploratoria con siete usuarios del sector agropecuario, se valoró la respuesta del botón SOS y se señaló la necesidad de proteger el hardware con una carcasa.</p>
+        </article>
+        <article class="status-card pending">
+          <h3><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v4l2.5 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.6"/></svg>Pendiente de integración y pruebas</h3>
+          <ul><li>Radios LoRa y cobertura de varios saltos.</li><li>GPS, ubicación y mapas totalmente offline.</li><li>Panel GIS y energía solar integrada.</li><li>Carcasa resistente y pruebas en condiciones de campo.</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contacto" aria-labelledby="contact-title">
+      <div class="contact-box">
+        <div><p class="eyebrow">Hablemos de tu operación</p><h2 id="contact-title">¿Trabajas en una zona sin cobertura?</h2><p>Comparte tus necesidades de comunicación o pregunta por una posible demostración. El enfoque de servicio propuesto considera WhatsApp, teléfono y correo cuando haya conectividad, además de coordinar visitas cuando sea necesario.</p></div>
+        <div class="contact-actions"><a class="button button-primary" href="https://wa.me/526161081999" target="_blank" rel="noopener">WhatsApp · 616 108 1999 <span aria-hidden="true">↗</span></a><a class="button button-ghost" href="mailto:erick.ramos37@uabc.edu.mx">erick.ramos37@uabc.edu.mx</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap"><strong>ZeroSignal</strong><span>Comunicación local para zonas rurales · Propuesta en desarrollo</span></footer>
+</body>
+</html>
